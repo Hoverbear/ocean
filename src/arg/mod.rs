@@ -1,4 +1,4 @@
-use clap::{App, Arg, SubCommand, AppSettings, ArgMatches};
+use clap::Arg;
 
 pub fn limit() -> Arg<'static, 'static> {
     Arg::with_name("limit")
