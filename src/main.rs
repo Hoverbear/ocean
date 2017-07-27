@@ -34,10 +34,8 @@ fn main() {
 
 /// Checks in the following places, in order:
 ///   - The `--token` flag passed to the program
-///   - The environment as `$DO_API_TOKEN`
-///   - The config file at `$HOME/.config/ocean/config.toml`
+///   - The environment as `$DO_API_TOKEN` (which may be loaded from `.env`)
 fn fetch_api_token<'a>(matches: &'a ArgMatches) -> Option<String> {
-    // TODO: Env/File
     if let Some(val) = matches.value_of("token") {
         Some(val.into())
     } else if let Ok(val) = env::var("DO_API_TOKEN") {

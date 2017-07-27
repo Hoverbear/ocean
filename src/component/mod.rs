@@ -3,6 +3,8 @@ use digitalocean::prelude::*;
 
 mod droplet;
 pub use self::droplet::Root as Droplet;
+mod domain;
+pub use self::domain::Root as Domain;
 mod root;
 pub use self::root::Root;
 

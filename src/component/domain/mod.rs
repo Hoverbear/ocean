@@ -10,8 +10,8 @@ pub struct Root;
 
 impl Component for Root {
     fn app() -> App<'static, 'static> {
-        App::new("droplet")
-            .about("Interact with droplets.")
+        App::new("domain")
+            .about("Interact with domains.")
             .setting(AppSettings::SubcommandRequired)
             .subcommand(List::app())
     }
@@ -23,3 +23,4 @@ impl Component for Root {
         }
     }
 }
+

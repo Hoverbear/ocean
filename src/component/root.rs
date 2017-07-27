@@ -25,14 +25,15 @@ impl Component for Root {
                  .required(false)
                  .takes_value(true))
             .subcommand(super::Droplet::app())
+            .subcommand(super::Domain::app())
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) {
         match arg_matches.subcommand() {
             ("droplet", Some(arg_matches)) =>
                 super::Droplet::handle(client, arg_matches),
-//            ("domain", Some(arg_matches)) =>
-//                Component::domain::Root::handle(client, arg_matches),
+            ("domain", Some(arg_matches)) =>
+                super::Domain::handle(client, arg_matches),
             _ => panic!("Unknown subcommand provided"),
         }
 
