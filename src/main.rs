@@ -32,9 +32,9 @@ fn main() {
 }
 
 
-/// Checks in the following places, in order:
-///   - The `--token` flag passed to the program
-///   - The environment as `$DO_API_TOKEN` (which may be loaded from `.env`)
+// Checks in the following places, in order:
+//   - The `--token` flag passed to the program
+//   - The environment as `$DO_API_TOKEN` (which may be loaded from `.env`)
 fn fetch_api_token<'a>(matches: &'a ArgMatches) -> Option<String> {
     if let Some(val) = matches.value_of("token") {
         Some(val.into())
@@ -45,4 +45,7 @@ fn fetch_api_token<'a>(matches: &'a ArgMatches) -> Option<String> {
     }
 }
 
-
+// Most commands output a table, this is their common interface.
+trait PrintTable {
+    fn print_table(&self);
+}
