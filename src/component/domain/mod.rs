@@ -5,6 +5,7 @@ use component::Component;
 use prettytable::{self, Table};
 use prettytable::row::Row;
 use prettytable::cell::Cell;
+use error::Result;
 
 mod list;
 pub use self::list::List;
@@ -27,7 +28,7 @@ impl Component for Root {
             .subcommand(Delete::app())
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
         match arg_matches.subcommand() {
             ("list", Some(arg_matches)) => List::handle(client, arg_matches),
             ("create", Some(arg_matches)) => Create::handle(client, arg_matches),
@@ -47,18 +48,17 @@ impl PrintTable for [Domain] {
     fn print_table(&self) {
         let mut table = Table::new();
 
-        table.set_format(*prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR);
-        table.set_titles(Row::new(vec![
-                               Cell::new("name"),
-                               Cell::new("ttl"),
-        ]));
+        table.set_format(
+            *prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR,
+        );
+        table.set_titles(Row::new(vec![Cell::new("name"), Cell::new("ttl")]));
 
         for row in self {
             table.add_row(Row::new(vec![
-                               Cell::new(row.name()),
-                               Cell::new(&row.ttl()
-                                             .map(|v| v.to_string())
-                                             .unwrap_or(String::from("-"))),
+                Cell::new(row.name()),
+                Cell::new(&row.ttl().map(|v| v.to_string()).unwrap_or(
+                    String::from("-"),
+                )),
             ]));
         }
 
