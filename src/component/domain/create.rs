@@ -1,7 +1,7 @@
-use clap::{App, Arg, SubCommand, AppSettings, ArgMatches};
+use clap::{App, Arg, ArgMatches};
 use digitalocean::prelude::*;
 use error::Result;
-use {arg, PrintTable};
+use PrintTable;
 use component::Component;
 use std::net::IpAddr;
 use std::str::FromStr;

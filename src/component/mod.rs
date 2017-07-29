@@ -1,13 +1,11 @@
 use error::Result;
-use clap::{App, Arg, SubCommand, AppSettings, ArgMatches};
+use clap::{App, Arg, AppSettings, ArgMatches};
 use digitalocean::prelude::*;
 
 mod droplet;
 pub use self::droplet::Root as Droplet;
 mod domain;
 pub use self::domain::Root as Domain;
-mod root;
-pub use self::root::Root;
 
 /// `Components`s are `clap::App`s. Just call them with `app` to get the Clap `App`/`Subcommand`
 /// object. (Yes you can just use an `App`, cool huh?) then later use `handle()` to chain the args
@@ -26,4 +24,44 @@ pub trait Component {
     ///      `component::droplet::Root` compnent which would call the `component::droplet::Create`
     ///      component.
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()>;
+}
+
+/// The root of the application.
+pub struct Root;
+
+impl Component for Root {
+    fn app() -> App<'static, 'static> {
+        App::new(env!("CARGO_PKG_NAME"))
+            .version(crate_version!())
+            .author(crate_authors!())
+            .about(env!("CARGO_PKG_DESCRIPTION"))
+            .global_settings(
+                &[
+                    AppSettings::ColoredHelp,
+                    AppSettings::GlobalVersion,
+                    AppSettings::InferSubcommands,
+                ],
+            )
+            .setting(AppSettings::SubcommandRequired)
+            .arg(
+                Arg::with_name("token")
+                    .long("token")
+                    .short("t")
+                    .value_name("TOKEN")
+                    .help("The DigitalOcean API key to use.")
+                    .required(false)
+                    .takes_value(true),
+            )
+            .subcommand(Droplet::app())
+            .subcommand(Domain::app())
+    }
+
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+        match arg_matches.subcommand() {
+            ("droplet", Some(arg_matches)) => Droplet::handle(client, arg_matches),
+            ("domain", Some(arg_matches)) => Domain::handle(client, arg_matches),
+            _ => panic!("Unknown subcommand provided"),
+        }
+
+    }
 }

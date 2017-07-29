@@ -1,4 +1,4 @@
-use clap::{App, Arg, SubCommand, AppSettings, ArgMatches};
+use clap::{App, ArgMatches};
 use error::Result;
 use digitalocean::prelude::*;
 use {PrintTable, arg};
@@ -11,7 +11,7 @@ impl Component for List {
         App::new("list").about("List droplets.").arg(arg::limit())
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, _arg_matches: &ArgMatches) -> Result<()> {
         let output = client.execute(Droplet::list())?;
 
         output.print_table();

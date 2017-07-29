@@ -1,9 +1,6 @@
 #[macro_use]
 extern crate clap;
 extern crate dotenv;
-#[macro_use]
-extern crate lazy_static;
-#[macro_use]
 extern crate env_logger;
 extern crate digitalocean;
 extern crate prettytable;
@@ -15,8 +12,7 @@ mod component;
 mod arg;
 mod error;
 
-use error::{Result, Error, ErrorKind};
-use std::env;
+use std::{env, process};
 use clap::ArgMatches;
 use digitalocean::prelude::*;
 use component::Component;
@@ -33,7 +29,10 @@ fn main() {
 
     let client = DigitalOcean::new(api_token).unwrap();
 
-    component::Root::handle(client, &matches);
+    if let Err(e) = component::Root::handle(client, &matches) {
+        println!("{}", e);
+        process::exit(1);
+    }
 }
 
 

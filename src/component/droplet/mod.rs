@@ -1,6 +1,6 @@
-use clap::{App, Arg, AppSettings, ArgMatches};
+use clap::{App, AppSettings, ArgMatches};
 use digitalocean::prelude::*;
-use {PrintTable, arg};
+use PrintTable;
 use component::Component;
 use prettytable::{self, Table};
 use prettytable::row::Row;
