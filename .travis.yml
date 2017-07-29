@@ -1,0 +1,17 @@
+language: rust
+sudo: required
+env:
+  global:
+    - RUST_BACKTRACE=1
+cache: cargo
+
+matrix:
+  include:
+    - rust: nightly
+      os: linux
+    - rust: stable
+      os: linux
+    - rust: nightly
+      os: osx
+    - rust: stable
+      os: osx
