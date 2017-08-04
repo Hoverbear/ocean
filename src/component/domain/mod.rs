@@ -16,6 +16,9 @@ pub use self::create::Create;
 mod delete;
 pub use self::delete::Delete;
 
+mod get;
+pub use self::get::Get;
+
 pub struct Root;
 
 impl Component for Root {
@@ -26,6 +29,7 @@ impl Component for Root {
             .subcommand(List::app())
             .subcommand(Create::app())
             .subcommand(Delete::app())
+            .subcommand(Get::app())
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
@@ -33,6 +37,7 @@ impl Component for Root {
             ("list", Some(arg_matches)) => List::handle(client, arg_matches),
             ("create", Some(arg_matches)) => Create::handle(client, arg_matches),
             ("delete", Some(arg_matches)) => Delete::handle(client, arg_matches),
+            ("get", Some(arg_matches)) => Get::handle(client, arg_matches),
             _ => panic!("Unknown subcommand provided"),
         }
     }

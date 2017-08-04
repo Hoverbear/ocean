@@ -8,6 +8,9 @@ env_logger = "0.4.3"
 error-chain = "*"
 log = "0.3.8"
 prettytable-rs = "0.6.7"
+serde = "*"
+serde_json = "*"
+toml = "*"
 
 [dependencies.clap]
 features = ["yaml"]

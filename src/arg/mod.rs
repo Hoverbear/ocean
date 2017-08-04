@@ -15,3 +15,13 @@ pub fn id() -> Arg<'static, 'static> {
         .help("The ID to retrieve.")
         .required(true)
 }
+
+pub fn output() -> Arg<'static, 'static> {
+    Arg::with_name("output")
+        .long("output")
+        .short("o")
+        .help("Output in a given format.")
+        .takes_value(true)
+        .possible_values(&["json", "yaml", "toml"])
+        .required(false)
+}

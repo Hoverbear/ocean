@@ -6,7 +6,9 @@ extern crate digitalocean;
 extern crate prettytable;
 #[macro_use]
 extern crate error_chain;
-
+extern crate serde_json;
+extern crate toml;
+extern crate serde;
 
 mod component;
 mod arg;
