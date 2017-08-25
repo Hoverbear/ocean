@@ -1,6 +1,6 @@
 use clap::{App, ArgMatches};
 use digitalocean::prelude::*;
-use {arg, PrintTable};
+use arg;
 use component::Component;
 use error::Result;
 
@@ -11,10 +11,10 @@ impl Component for List {
         App::new("list").about("List domains.").arg(arg::limit())
     }
 
-    fn handle(client: DigitalOcean, _arg_matches: &ArgMatches) -> Result<()> {
-        let output = client.execute(Domain::list())?;
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+        let response = client.execute(Domain::list())?;
 
-        output.print_table();
+        Self::output(response, arg_matches.value_of("output"))?;
 
         Ok(())
     }

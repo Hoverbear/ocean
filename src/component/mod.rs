@@ -1,6 +1,10 @@
 use error::Result;
 use clap::{App, Arg, AppSettings, ArgMatches};
 use digitalocean::prelude::*;
+use serde_json;
+use AsTable;
+use toml;
+use serde::Serialize;
 
 mod droplet;
 pub use self::droplet::Root as Droplet;
@@ -24,6 +28,19 @@ pub trait Component {
     ///      `component::droplet::Root` compnent which would call the `component::droplet::Create`
     ///      component.
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()>;
+
+    fn output<'a, T>(values: T, format: Option<&'a str>) -> Result<()>
+    where T: Serialize + ::std::fmt::Debug + AsTable {
+        match format {
+            None => println!("{:#?}", values),
+            Some("json") => println!("{:#}", serde_json::to_value(&values)?),
+            Some("toml") => println!("{}", toml::to_string(&values)?),
+            Some("yaml") => unimplemented!(),
+            Some("table") => values.as_table(),
+            _ => unreachable!(),
+        };
+        Ok(())
+    }
 }
 
 /// The root of the application.
@@ -52,6 +69,16 @@ impl Component for Root {
                     .required(false)
                     .takes_value(true),
             )
+            .arg(
+                Arg::with_name("output")
+                    .long("output")
+                    .short("o")
+                    .help("Output in a given format.")
+                    .takes_value(true)
+                    .possible_values(&["json", "yaml", "toml", "table"])
+                    .required(false)
+                    .global(true)
+            )
             .subcommand(Droplet::app())
             .subcommand(Domain::app())
     }
@@ -62,6 +89,5 @@ impl Component for Root {
             ("domain", Some(arg_matches)) => Domain::handle(client, arg_matches),
             _ => panic!("Unknown subcommand provided"),
         }
-
     }
 }

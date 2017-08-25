@@ -1,7 +1,6 @@
 use clap::{App, Arg, ArgMatches};
 use digitalocean::prelude::*;
 use error::Result;
-use PrintTable;
 use component::Component;
 use std::net::IpAddr;
 use std::str::FromStr;
@@ -33,9 +32,9 @@ impl Component for Create {
         let domain = arg_matches.value_of("domain").unwrap();
         let address = IpAddr::from_str(arg_matches.value_of("address").unwrap())?;
 
-        let output = client.execute(Domain::create(domain, address))?;
+        let response = client.execute(Domain::create(domain, address))?;
 
-        output.print_table();
+        Self::output(response, arg_matches.value_of("output"))?;
 
         Ok(())
     }

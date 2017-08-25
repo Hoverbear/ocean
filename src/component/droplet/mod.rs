@@ -1,6 +1,6 @@
 use clap::{App, AppSettings, ArgMatches};
 use digitalocean::prelude::*;
-use PrintTable;
+use AsTable;
 use component::Component;
 use prettytable::{self, Table};
 use prettytable::row::Row;
@@ -28,14 +28,14 @@ impl Component for Root {
     }
 }
 
-impl PrintTable for Droplet {
-    fn print_table(&self) {
-        [self.clone()].print_table()
+impl AsTable for Droplet {
+    fn as_table(&self) {
+        vec![self.clone()].as_table()
     }
 }
 
-impl PrintTable for [Droplet] {
-    fn print_table(&self) {
+impl AsTable for Vec<Droplet> {
+    fn as_table(&self) {
         let mut table = Table::new();
         table.set_format(
             *prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR,

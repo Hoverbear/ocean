@@ -52,10 +52,6 @@ fn fetch_api_token<'a>(matches: &'a ArgMatches) -> Option<String> {
 }
 
 // Most commands output a table, this is their common interface.
-trait PrintTable {
-    fn print_table(&self);
-}
-
-trait PrintDetail {
-    fn print_detail(&self);
+pub trait AsTable {
+    fn as_table(&self);
 }
