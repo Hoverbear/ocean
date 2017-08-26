@@ -32,7 +32,7 @@ pub trait Component {
     fn output<'a, T>(values: T, format: Option<&'a str>) -> Result<()>
     where T: Serialize + ::std::fmt::Debug + AsTable {
         match format {
-            None => println!("{:#?}", values),
+            Some("debug") => println!("{:#?}", values),
             Some("json") => println!("{:#}", serde_json::to_value(&values)?),
             Some("toml") => println!("{}", toml::to_string(&values)?),
             Some("yaml") => unimplemented!(),
@@ -75,7 +75,7 @@ impl Component for Root {
                     .short("o")
                     .help("Output in a given format.")
                     .takes_value(true)
-                    .possible_values(&["json", "yaml", "toml", "table"])
+                    .possible_values(&["json", "yaml", "toml", "table", "debug"])
                     .default_value("table")
                     .required(false)
                     .global(true)
