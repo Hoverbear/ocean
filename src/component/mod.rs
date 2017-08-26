@@ -76,6 +76,7 @@ impl Component for Root {
                     .help("Output in a given format.")
                     .takes_value(true)
                     .possible_values(&["json", "yaml", "toml", "table"])
+                    .default_value("table")
                     .required(false)
                     .global(true)
             )
