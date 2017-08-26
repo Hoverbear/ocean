@@ -11,10 +11,8 @@ prettytable-rs = "0.6.7"
 serde = "*"
 serde_json = "*"
 toml = "*"
+digitalocean = "*"
 
 [dependencies.clap]
 features = ["yaml"]
 version = "2.24.2"
-
-[dependencies.digitalocean]
-path = "../digitalocean"
