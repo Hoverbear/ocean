@@ -9,6 +9,7 @@ extern crate error_chain;
 extern crate serde_json;
 extern crate toml;
 extern crate serde;
+extern crate serde_yaml;
 
 mod component;
 mod arg;
