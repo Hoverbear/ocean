@@ -1,7 +1,21 @@
 [package]
-authors = ["Andrew Hobden <andrew@hoverbear.org>"]
 name = "ocean"
 version = "0.0.1"
+authors = ["Andrew Hobden <andrew@hoverbear.org>"]
+repository = "https://github.com/hoverbear/ocean"
+categories = ["development-tools", "command-line-interface", "api-bindings"]
+homepage = "https://github.com/hoverbear/ocean"
+documentation = "https://docs.rs/crate/ocean/"
+
+keywords = ["DigitalOcean", "IaaS", "API"]
+license = "MIT"
+readme = "README.md"
+
+[badges]
+gitlab = { repository = "https://github.com/hoverbear/ocean" }
+travis-ci = { repository = "hoverbear/ocean" }
+maintenance = { status = "experimental" }
+
 [dependencies]
 dotenv = "0.10.0"
 env_logger = "0.4.3"
