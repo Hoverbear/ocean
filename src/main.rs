@@ -15,10 +15,10 @@ mod component;
 mod arg;
 mod error;
 
-use std::{env, process};
 use clap::ArgMatches;
-use digitalocean::prelude::*;
 use component::Component;
+use digitalocean::prelude::*;
+use std::{env, process};
 
 fn main() {
     dotenv::dotenv().ok();

@@ -1,7 +1,7 @@
 use clap::{App, Arg, ArgMatches};
+use component::Component;
 use digitalocean::prelude::*;
 use error::Result;
-use component::Component;
 use std::net::IpAddr;
 use std::str::FromStr;
 

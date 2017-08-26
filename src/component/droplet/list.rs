@@ -1,8 +1,9 @@
-use clap::{App, ArgMatches};
-use error::Result;
-use digitalocean::prelude::*;
+
 use {AsTable, arg};
+use clap::{App, ArgMatches};
 use component::Component;
+use digitalocean::prelude::*;
+use error::Result;
 
 pub struct List;
 

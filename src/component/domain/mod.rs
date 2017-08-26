@@ -1,11 +1,12 @@
-use clap::{App, AppSettings, ArgMatches};
-use digitalocean::prelude::*;
+
 use AsTable;
+use clap::{App, AppSettings, ArgMatches};
 use component::Component;
-use prettytable::{self, Table};
-use prettytable::row::Row;
-use prettytable::cell::Cell;
+use digitalocean::prelude::*;
 use error::Result;
+use prettytable::{self, Table};
+use prettytable::cell::Cell;
+use prettytable::row::Row;
 
 mod list;
 pub use self::list::List;

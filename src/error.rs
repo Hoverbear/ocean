@@ -1,7 +1,7 @@
 use digitalocean;
-use std::net::AddrParseError;
 use serde_json;
 use serde_yaml;
+use std::net::AddrParseError;
 use toml;
 
 // Create the Error, ErrorKind, ResultExt, and Result types
