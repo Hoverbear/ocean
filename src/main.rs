@@ -21,6 +21,10 @@ use clap::ArgMatches;
 use component::Component;
 use digitalocean::prelude::*;
 use std::{env, process};
+use prettytable::Table;
+use prettytable::cell::Cell;
+use prettytable::row::Row;
+use error_chain::ChainedError;
 
 fn main() {
     dotenv::dotenv().ok();
@@ -35,7 +39,7 @@ fn main() {
     let client = DigitalOcean::new(api_token).unwrap();
 
     if let Err(e) = component::Root::handle(client, &matches) {
-        println!("{}", e);
+        println!("{}", e.display_chain());
         process::exit(1);
     }
 }
@@ -57,4 +61,25 @@ fn fetch_api_token<'a>(matches: &'a ArgMatches) -> Option<String> {
 // Most commands output a table, this is their common interface.
 pub trait AsTable {
     fn as_table(&self);
+}
+
+impl<'a> AsTable for Vec<&'a str> {
+    fn as_table(&self) {
+        let mut table = Table::new();
+
+        table.set_format(
+            *prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR,
+        );
+        table.set_titles(Row::new(vec![
+            Cell::new("value"),
+        ]));
+
+        for row in self {
+            table.add_row(Row::new(vec![
+                Cell::new(&format!("{}", row)),
+            ]));
+        }
+
+        table.printstd();
+    }
 }
