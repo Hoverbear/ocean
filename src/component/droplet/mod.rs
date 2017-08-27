@@ -11,6 +11,9 @@ use prettytable::row::Row;
 mod list;
 pub use self::list::List;
 
+mod get;
+pub use self::get::Get;
+
 mod create;
 pub use self::create::Create;
 
@@ -22,12 +25,14 @@ impl Component for Root {
             .about("Interact with droplets.")
             .setting(AppSettings::SubcommandRequired)
             .subcommand(List::app())
+            .subcommand(Get::app())
             .subcommand(Create::app())
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
         match arg_matches.subcommand() {
             ("list", Some(arg_matches)) => List::handle(client, arg_matches),
+            ("get", Some(arg_matches)) => Get::handle(client, arg_matches),
             ("create", Some(arg_matches)) => Create::handle(client, arg_matches),
             _ => panic!("Unknown subcommand provided"),
         }
