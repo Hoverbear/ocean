@@ -1,7 +1,7 @@
 use clap::{App, Arg, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
-use error::Result;
+use error::{Result, ResultExt};
 
 pub struct Delete;
 
@@ -18,13 +18,18 @@ impl Component for Delete {
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
-        let domains = arg_matches.values_of("domain").unwrap();
+        let values = arg_matches.values_of("domain").unwrap();
 
-        for domain in domains {
-            client.execute(Domain::delete(domain))?;
-
-            println!("{} deleted.", domain);
-        }
+        let responses = values
+            .map(|v| (v, Domain::delete(v)))
+            .map(|(name, req)| {
+                client.execute(req)
+                    .map(|()| name)
+                    .chain_err(|| format!("Failed to delete {}.", name))
+            })
+            .collect::<Result<Vec<_>>>()?;
+        
+        Self::output(responses, arg_matches.value_of("output"))?;
 
         Ok(())
     }
