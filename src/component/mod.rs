@@ -12,6 +12,8 @@ mod droplet;
 pub use self::droplet::Root as Droplet;
 mod domain;
 pub use self::domain::Root as Domain;
+mod infrastructure;
+pub use self::infrastructure::Root as Infrastructure;
 
 /// `Component`s are `clap::App`s. Just call them with `app` to get the Clap `App`/`Subcommand`
 /// object. (Yes you can just use an `App`, cool huh?) then later use `handle()` to chain the args
@@ -37,8 +39,15 @@ pub trait Component {
     {
         match format {
             Some("debug") => println!("{:#?}", values),
-            Some("json") => println!("{:#}", serde_json::to_value(&values)?),
-            Some("toml") => println!("{}", toml::to_string(&values)?),
+            Some("json") => {
+                println!("{}", serde_json::to_string_pretty(&values)?)
+            },
+            Some("toml") => {
+                // This is a slightly nasty workaround for
+                // https://github.com/alexcrichton/toml-rs/issues/142
+                let workaround = toml::value::Value::try_from(&values)?;
+                println!("{}", toml::to_string_pretty(&workaround)?)
+            },
             Some("yaml") => println!("{}", serde_yaml::to_string(&values)?),
             Some("table") => values.as_table(),
             _ => unreachable!(),
@@ -86,12 +95,14 @@ impl Component for Root {
             )
             .subcommand(Droplet::app())
             .subcommand(Domain::app())
+            .subcommand(Infrastructure::app())
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
         match arg_matches.subcommand() {
             ("droplet", Some(arg_matches)) => Droplet::handle(client, arg_matches),
             ("domain", Some(arg_matches)) => Domain::handle(client, arg_matches),
+            ("infrastructure", Some(arg_matches)) => Infrastructure::handle(client, arg_matches),
             _ => panic!("Unknown subcommand provided"),
         }
     }
