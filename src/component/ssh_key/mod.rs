@@ -1,8 +1,9 @@
+
+use AsTable;
 use clap::{App, AppSettings, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
 use error::Result;
-use AsTable;
 use prettytable::{self, Table};
 use prettytable::cell::Cell;
 use prettytable::row::Row;
@@ -60,7 +61,6 @@ impl AsTable for Vec<SshKey> {
             Cell::new("id"),
             Cell::new("name"),
             Cell::new("fingerprint"),
-
         ]));
 
         for row in self {

@@ -20,11 +20,11 @@ mod error;
 use clap::ArgMatches;
 use component::Component;
 use digitalocean::prelude::*;
-use std::{env, process};
+use error_chain::ChainedError;
 use prettytable::Table;
 use prettytable::cell::Cell;
 use prettytable::row::Row;
-use error_chain::ChainedError;
+use std::{env, process};
 
 fn main() {
     dotenv::dotenv().ok();
@@ -70,14 +70,10 @@ impl<'a> AsTable for Vec<&'a str> {
         table.set_format(
             *prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR,
         );
-        table.set_titles(Row::new(vec![
-            Cell::new("value"),
-        ]));
+        table.set_titles(Row::new(vec![Cell::new("value")]));
 
         for row in self {
-            table.add_row(Row::new(vec![
-                Cell::new(&format!("{}", row)),
-            ]));
+            table.add_row(Row::new(vec![Cell::new(&format!("{}", row))]));
         }
 
         table.printstd();

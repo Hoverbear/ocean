@@ -1,4 +1,3 @@
-
 use {AsTable, arg};
 use clap::{App, ArgMatches};
 use component::Component;

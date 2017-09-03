@@ -1,4 +1,3 @@
-
 use arg;
 use clap::{App, ArgMatches};
 use component::Component;

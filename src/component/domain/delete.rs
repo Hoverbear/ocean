@@ -28,7 +28,7 @@ impl Component for Delete {
                     .chain_err(|| format!("Failed to delete {}.", name))
             })
             .collect::<Result<Vec<_>>>()?;
-        
+
         Self::output(responses, arg_matches.value_of("output"))?;
 
         Ok(())

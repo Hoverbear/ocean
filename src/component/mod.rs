@@ -1,4 +1,3 @@
-
 use AsTable;
 use clap::{App, AppSettings, Arg, ArgMatches};
 use digitalocean::prelude::*;
@@ -41,9 +40,7 @@ pub trait Component {
     {
         match format {
             Some("debug") => println!("{:#?}", values),
-            Some("json") => {
-                println!("{}", serde_json::to_string_pretty(&values)?)
-            },
+            Some("json") => println!("{}", serde_json::to_string_pretty(&values)?),
             Some("toml") => {
                 // This is a slightly nasty workaround for
                 // https://github.com/alexcrichton/toml-rs/issues/142

@@ -56,10 +56,10 @@ impl Component for Create {
         let region = arg_matches.value_of("region").unwrap();
         let size = arg_matches.value_of("size").unwrap();
         let image = arg_matches.value_of("image").unwrap();
-        
+
 
         let request = Droplet::create(name, region, size, image);
-        
+
         // These are optional arguments.
         let request = match arg_matches.values_of("key") {
             Some(values) => request.ssh_keys(values.collect()),

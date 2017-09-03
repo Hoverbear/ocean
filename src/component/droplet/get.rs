@@ -20,12 +20,18 @@ impl Component for Get {
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
-        let droplets = arg_matches.values_of("droplet")
+        let droplets = arg_matches
+            .values_of("droplet")
             .unwrap()
-            .map(|v| v.parse::<usize>().chain_err(|| format!("failed to parse {} to usize.", v)))
+            .map(|v| {
+                v.parse::<usize>().chain_err(|| {
+                    format!("failed to parse {} to usize.", v)
+                })
+            })
             .collect::<Result<Vec<_>>>()?;
 
-        let response = droplets.into_iter()
+        let response = droplets
+            .into_iter()
             .map(|v| Droplet::get(v))
             .map(|req| {
                 client.execute(req).chain_err(

@@ -25,7 +25,7 @@ impl Component for Create {
                     .required(true)
                     .takes_value(true),
             )
-            // TODO: Allow specifying a pubkey file?
+        // TODO: Allow specifying a pubkey file?
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
