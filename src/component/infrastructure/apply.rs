@@ -1,4 +1,3 @@
-
 use super::Infrastructure;
 use clap::{App, Arg, ArgMatches};
 use component::Component;
