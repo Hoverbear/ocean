@@ -23,8 +23,8 @@ repository = "hoverbear/ocean"
 
 [dependencies]
 clap = "2.26.0"
-digitalocean = { version="0.0.3", path="../digitalocean" }
-#digitalocean = "0.0.3"
+#digitalocean = { version="0.0.3", path="../digitalocean" }
+digitalocean = "0.0.3"
 dotenv = "0.10.0"
 env_logger = "0.4.3"
 error-chain = "0.11.0-rc.2"

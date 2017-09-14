@@ -25,7 +25,12 @@ pub use self::infrastructure::Root as Infrastructure;
 /// or integrating it with another `clap::App` is ridiculously simple. If you want tighter
 /// integration please check out the `DigitalOcean` crate.
 pub trait Component {
+    /// The default output style of the `Component`. For non-outputting parts of the component
+    /// chain this is `None`.
+    const DEFAULT_OUTPUT: Option<&'static str> = None;
+
     /// Builds the `clap::App` that corresponds to this `Component`.
+
     fn app() -> App<'static, 'static>;
     /// Handle the request with some `ArgMatches`. This does one of two things:
     ///   1. It finalizes and terminates a request.
@@ -33,12 +38,13 @@ pub trait Component {
     ///      `component::droplet::Root` compnent which would call the `component::droplet::Create`
     ///      component.
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()>;
+
     /// Handles outputting the values appropriately.
     fn output<'a, T>(values: T, format: Option<&'a str>) -> Result<()>
     where
         T: serde::ser::Serialize + ::std::fmt::Debug + AsTable,
     {
-        match format {
+        match format.or(Self::DEFAULT_OUTPUT) {
             Some("debug") => println!("{:#?}", values),
             Some("json") => println!("{}", serde_json::to_string_pretty(&values)?),
             Some("toml") => {
@@ -88,7 +94,6 @@ impl Component for Root {
                     .help("Output in a given format.")
                     .takes_value(true)
                     .possible_values(&["json", "yaml", "toml", "table", "debug"])
-                    .default_value("table")
                     .required(false)
                     .global(true),
             )

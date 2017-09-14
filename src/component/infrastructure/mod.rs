@@ -3,10 +3,6 @@ use clap::{App, AppSettings, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
 use error::Result;
-use prettytable::{self, Table};
-use prettytable::cell::Cell;
-use prettytable::row::Row;
-use serde::ser::Serialize;
 
 mod get;
 pub use self::get::Get;

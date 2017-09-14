@@ -2,12 +2,12 @@ use clap::{App, Arg, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
 use error::Result;
-use std::net::IpAddr;
-use std::str::FromStr;
 
 pub struct Create;
 
 impl Component for Create {
+    const DEFAULT_OUTPUT: Option<&'static str> = Some("debug");
+
     fn app() -> App<'static, 'static> {
         App::new("create")
             .about("Create an SSH key.")

@@ -8,6 +8,8 @@ use std::str::FromStr;
 pub struct Create;
 
 impl Component for Create {
+    const DEFAULT_OUTPUT: Option<&'static str> = Some("debug");
+
     fn app() -> App<'static, 'static> {
         App::new("create")
             .about("Create a domain.")

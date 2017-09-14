@@ -7,6 +7,8 @@ use error::Result;
 pub struct List;
 
 impl Component for List {
+    const DEFAULT_OUTPUT: Option<&'static str> = Some("table");
+
     fn app() -> App<'static, 'static> {
         App::new("list").about("List domains.").arg(arg::limit())
     }

@@ -6,6 +6,8 @@ use error::{Result, ResultExt};
 pub struct Delete;
 
 impl Component for Delete {
+    const DEFAULT_OUTPUT: Option<&'static str> = Some("debug");
+
     fn app() -> App<'static, 'static> {
         App::new("delete").about("Delete an SSH key.").arg(
             Arg::with_name("key")

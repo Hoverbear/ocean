@@ -7,6 +7,8 @@ use error::{Result, ResultExt};
 pub struct Get;
 
 impl Component for Get {
+    const DEFAULT_OUTPUT: Option<&'static str> = Some("debug");
+
     fn app() -> App<'static, 'static> {
         App::new("get").about("Get the current state of the infrastructure.")
     }
