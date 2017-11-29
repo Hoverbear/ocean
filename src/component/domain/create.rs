@@ -1,7 +1,7 @@
 use clap::{App, Arg, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
-use error::Result;
+use failure::Error;
 use std::net::IpAddr;
 use std::str::FromStr;
 
@@ -29,7 +29,7 @@ impl Component for Create {
             )
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         // These are required arguments.
         let domain = arg_matches.value_of("domain").unwrap();
         let address = IpAddr::from_str(arg_matches.value_of("address").unwrap())?;

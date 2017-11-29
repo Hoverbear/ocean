@@ -1,4 +1,5 @@
 [package]
+name = "ocean"
 authors = ["Andrew Hobden <andrew@hoverbear.org>"]
 description = "A command line interface for DigitalOcean."
 categories = ["development-tools", "command-line-interface", "api-bindings"]
@@ -6,7 +7,6 @@ documentation = "https://docs.rs/crate/ocean/"
 homepage = "https://github.com/hoverbear/ocean"
 keywords = ["DigitalOcean", "IaaS", "API"]
 license = "MIT"
-name = "ocean"
 readme = "README.md"
 repository = "https://github.com/hoverbear/ocean"
 version = "0.0.1"
@@ -23,11 +23,12 @@ repository = "hoverbear/ocean"
 
 [dependencies]
 clap = "2.26.0"
-#digitalocean = { version="0.0.3", path="../digitalocean" }
-digitalocean = "0.0.3"
+# digitalocean = { version="0.0.3", path="../digitalocean" }
+digitalocean = { git = "https://github.com/Hoverbear/digitalocean.git" }
 dotenv = "0.10.0"
 env_logger = "0.4.3"
-error-chain = "0.11.0-rc.2"
+failure = "0.1.0"
+failure_derive = "0.1.0"
 log = "0.3.8"
 prettytable-rs = "0.6.7"
 serde = "1.0.11"

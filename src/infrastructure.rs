@@ -10,7 +10,7 @@ pub struct Infrastructure {
 
 impl Infrastructure {
     /// Handles outputting the values appropriately.
-    fn write<'a, T>(&self, output: &mut Write, format: Option<&'a str>) -> Result<()>
+    fn write<'a, T>(&self, output: &mut Write, format: Option<&'a str>) -> Result<(), Error>
     where
         T: serde::ser::Serialize + ::std::fmt::Debug + AsTable,
     {

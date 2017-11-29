@@ -2,7 +2,7 @@ use AsTable;
 use clap::{App, AppSettings, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
-use error::Result;
+use failure::Error;
 
 mod get;
 pub use self::get::Get;
@@ -20,7 +20,7 @@ impl Component for Root {
             .subcommand(Apply::app())
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         match arg_matches.subcommand() {
             ("get", Some(arg_matches)) => Get::handle(client, arg_matches),
             ("apply", Some(arg_matches)) => Apply::handle(client, arg_matches),

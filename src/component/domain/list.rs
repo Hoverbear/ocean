@@ -2,7 +2,7 @@ use arg;
 use clap::{App, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
-use error::Result;
+use failure::Error;
 
 pub struct List;
 
@@ -13,7 +13,7 @@ impl Component for List {
         App::new("list").about("List domains.").arg(arg::limit())
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         let response = client.execute(Domain::list())?;
 
         Self::output(response, arg_matches.value_of("output"))?;

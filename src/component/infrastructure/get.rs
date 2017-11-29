@@ -2,7 +2,7 @@ use super::Infrastructure;
 use clap::{App, Arg, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
-use error::{Result, ResultExt};
+use failure::Error;
 
 pub struct Get;
 
@@ -13,7 +13,7 @@ impl Component for Get {
         App::new("get").about("Get the current state of the infrastructure.")
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         let mut infra = Infrastructure::default();
 
         infra.domains = client.execute(Domain::list())?;

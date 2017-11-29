@@ -1,7 +1,7 @@
 use clap::{App, Arg, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
-use error::Result;
+use failure::Error;
 
 pub struct Create;
 
@@ -50,7 +50,7 @@ impl Component for Create {
             )
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         // These are required arguments.
         let name = arg_matches.value_of("name").unwrap();
         let region = arg_matches.value_of("region").unwrap();
