@@ -1,7 +1,7 @@
 use AsTable;
 use clap::{App, AppSettings, Arg, ArgMatches};
 use digitalocean::prelude::*;
-use error::Result;
+use failure::Error;
 use serde;
 use serde_json;
 use serde_yaml;
@@ -37,10 +37,10 @@ pub trait Component {
     ///   2. Invoke another `Component`. Eg. With `ocean droplet create` the
     ///      `component::droplet::Root` compnent which would call the `component::droplet::Create`
     ///      component.
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()>;
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error>;
 
     /// Handles outputting the values appropriately.
-    fn output<'a, T>(values: T, format: Option<&'a str>) -> Result<()>
+    fn output<'a, T>(values: T, format: Option<&'a str>) -> Result<(), Error>
     where
         T: serde::ser::Serialize + ::std::fmt::Debug + AsTable,
     {
@@ -103,7 +103,7 @@ impl Component for Root {
             .subcommand(SshKey::app())
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         match arg_matches.subcommand() {
             ("droplet", Some(arg_matches)) => Droplet::handle(client, arg_matches),
             ("domain", Some(arg_matches)) => Domain::handle(client, arg_matches),

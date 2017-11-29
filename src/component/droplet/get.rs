@@ -1,7 +1,8 @@
 use clap::{App, Arg, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
-use error::{Result, ResultExt};
+use failure::Error;
+use std::num;
 
 pub struct Get;
 
@@ -21,26 +22,18 @@ impl Component for Get {
             )
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         let droplets = arg_matches
             .values_of("droplet")
             .unwrap()
-            .map(|v| {
-                v.parse::<usize>().chain_err(|| {
-                    format!("failed to parse {} to usize.", v)
-                })
-            })
-            .collect::<Result<Vec<_>>>()?;
+            .map(|v| v.parse::<usize>())
+            .collect::<Result<Vec<_>, num::ParseIntError>>()?;
 
         let response = droplets
             .into_iter()
             .map(|v| Droplet::get(v))
-            .map(|req| {
-                client.execute(req).chain_err(
-                    || "Failed to make API request.",
-                )
-            })
-            .collect::<Result<Vec<_>>>()?;
+            .map(|req| client.execute(req))
+            .collect::<Result<Vec<_>, Error>>()?;
 
         Self::output(response, arg_matches.value_of("output"))?;
 

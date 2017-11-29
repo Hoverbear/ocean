@@ -2,7 +2,7 @@ use super::Infrastructure;
 use clap::{App, Arg, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
-use error::{Result, ResultExt};
+use failure::Error;
 
 pub struct Apply;
 
@@ -11,7 +11,7 @@ impl Component for Apply {
         App::new("apply").about("Apply a configuration to the infrastructure.")
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         unimplemented!();
 
         Self::output(Infrastructure::default(), arg_matches.value_of("output"))?;

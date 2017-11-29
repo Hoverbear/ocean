@@ -2,10 +2,13 @@
 extern crate clap;
 extern crate dotenv;
 extern crate env_logger;
+#[macro_use]
+extern crate log;
 extern crate digitalocean;
 extern crate prettytable;
+extern crate failure;
 #[macro_use]
-extern crate error_chain;
+extern crate failure_derive;
 extern crate serde_json;
 extern crate toml;
 extern crate serde;
@@ -15,12 +18,12 @@ extern crate serde_yaml;
 
 mod component;
 mod arg;
-mod error;
+mod output;
 
 use clap::ArgMatches;
 use component::Component;
 use digitalocean::prelude::*;
-use error_chain::ChainedError;
+use failure::Error;
 use prettytable::Table;
 use prettytable::cell::Cell;
 use prettytable::row::Row;
@@ -39,7 +42,8 @@ fn main() {
     let client = DigitalOcean::new(api_token).unwrap();
 
     if let Err(e) = component::Root::handle(client, &matches) {
-        println!("{}", e.display_chain());
+        info!("{:?}", e.cause());
+        debug!("{}", e.backtrace());
         process::exit(1);
     }
 }

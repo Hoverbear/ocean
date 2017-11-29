@@ -2,7 +2,7 @@ use AsTable;
 use clap::{App, AppSettings, ArgMatches};
 use component::Component;
 use digitalocean::prelude::*;
-use error::Result;
+use failure::Error;
 use prettytable::{self, Table};
 use prettytable::cell::Cell;
 use prettytable::row::Row;
@@ -28,7 +28,7 @@ impl Component for Root {
             .subcommand(Create::app())
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<()> {
+    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         match arg_matches.subcommand() {
             ("list", Some(arg_matches)) => List::handle(client, arg_matches),
             ("get", Some(arg_matches)) => Get::handle(client, arg_matches),
