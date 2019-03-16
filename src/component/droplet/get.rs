@@ -31,7 +31,7 @@ impl Component for Get {
 
         let response = droplets
             .into_iter()
-            .map(|v| Droplet::get(v))
+            .map(Droplet::get)
             .map(|req| client.execute(req))
             .collect::<Result<Vec<_>, Error>>()?;
 

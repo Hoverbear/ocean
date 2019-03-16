@@ -23,7 +23,7 @@ impl Component for Get {
         let args = arg_matches.values_of("name").unwrap();
 
         let response = args
-            .map(|name| SshKey::get(name))
+            .map(SshKey::get)
             .map(|req| client.execute(req))
             .collect::<Result<Vec<_>, Error>>()?;
 

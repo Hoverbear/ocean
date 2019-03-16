@@ -35,7 +35,7 @@ fn main() {
 // Checks in the following places, in order:
 //   - The `--token` flag passed to the program
 //   - The environment as `$DO_API_TOKEN` (which may be loaded from `.env`)
-fn fetch_api_token<'a>(matches: &'a ArgMatches) -> Option<String> {
+fn fetch_api_token(matches: &ArgMatches) -> Option<String> {
     if let Some(val) = matches.value_of("token") {
         Some(val.into())
     } else if let Ok(val) = env::var("DO_API_TOKEN") {
@@ -58,7 +58,7 @@ impl<'a> AsTable for Vec<&'a str> {
         table.set_titles(Row::new(vec![Cell::new("value")]));
 
         for row in self {
-            table.add_row(Row::new(vec![Cell::new(&format!("{}", row))]));
+            table.add_row(Row::new(vec![Cell::new(&row.to_string())]));
         }
 
         table.printstd();
