@@ -42,7 +42,7 @@ fn main() {
     let client = DigitalOcean::new(api_token).unwrap();
 
     if let Err(e) = component::Root::handle(client, &matches) {
-        info!("{:?}", e.cause());
+        info!("{:?}", e.as_fail());
         debug!("{}", e.backtrace());
         process::exit(1);
     }

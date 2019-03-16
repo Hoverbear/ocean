@@ -1,6 +1,6 @@
 [package]
 name = "ocean"
-authors = ["Andrew Hobden <andrew@hoverbear.org>"]
+authors = ["Ana Hobden <operator@hoverbear.org>"]
 description = "A command line interface for DigitalOcean."
 categories = ["development-tools", "command-line-interface", "api-bindings"]
 documentation = "https://docs.rs/crate/ocean/"
@@ -10,6 +10,7 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/hoverbear/ocean"
 version = "0.0.1"
+edition = "2018"
 
 [badges]
 [badges.gitlab]
