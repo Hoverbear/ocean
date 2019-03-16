@@ -17,7 +17,7 @@ matrix:
     #   os: osx
 
 before_script: 
-  - cargo install rustfmt || true
+  - rustup component add rustfmt
 script:
-  - cargo fmt -- --write-mode=diff
+  - cargo fmt -- --check
   - cargo test --all
