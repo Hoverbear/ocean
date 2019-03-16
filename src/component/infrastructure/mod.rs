@@ -1,8 +1,9 @@
-use AsTable;
+use crate::component::Component;
+use crate::AsTable;
 use clap::{App, AppSettings, ArgMatches};
-use component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
+use serde_derive::{Deserialize, Serialize};
 
 mod get;
 pub use self::get::Get;
@@ -14,7 +15,7 @@ pub struct Root;
 impl Component for Root {
     fn app() -> App<'static, 'static> {
         App::new("infrastructure")
-            .about("Interact with the entire infrastructure.")
+            .about("Interact with the entire infrastructure")
             .setting(AppSettings::SubcommandRequired)
             .subcommand(Get::app())
             .subcommand(Apply::app())

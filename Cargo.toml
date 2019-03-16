@@ -1,6 +1,6 @@
 [package]
 name = "ocean"
-authors = ["Andrew Hobden <andrew@hoverbear.org>"]
+authors = ["Ana Hobden <operator@hoverbear.org>"]
 description = "A command line interface for DigitalOcean."
 categories = ["development-tools", "command-line-interface", "api-bindings"]
 documentation = "https://docs.rs/crate/ocean/"
@@ -10,6 +10,7 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/hoverbear/ocean"
 version = "0.0.1"
+edition = "2018"
 
 [badges]
 [badges.gitlab]
@@ -22,17 +23,16 @@ status = "experimental"
 repository = "hoverbear/ocean"
 
 [dependencies]
-clap = "2.26.0"
-# digitalocean = { version="0.0.3", path="../digitalocean" }
+clap = "2.32.0"
 digitalocean = { git = "https://github.com/Hoverbear/digitalocean.git" }
-dotenv = "0.10.0"
-env_logger = "0.4.3"
-failure = "0.1.0"
-failure_derive = "0.1.0"
-log = "0.3.8"
-prettytable-rs = "0.6.7"
-serde = "1.0.11"
-serde_derive = "*"
-serde_json = "1.0.2"
-serde_yaml = "0.7.1"
-toml = "0.4.5"
+dotenv = "0.13.0"
+env_logger = "0.6.1"
+failure = "0.1.5"
+failure_derive = "0.1.5"
+log = "0.4.6"
+prettytable-rs = "0.8.0"
+serde = "1.0.89"
+serde_derive = "1.0.89"
+serde_json = "1.0.39"
+serde_yaml = "0.8.8"
+toml = "0.5.0"

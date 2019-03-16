@@ -1,5 +1,5 @@
+use crate::component::Component;
 use clap::{App, Arg, ArgMatches};
-use component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -10,32 +10,32 @@ impl Component for Create {
 
     fn app() -> App<'static, 'static> {
         App::new("create")
-            .about("Create a droplet.")
+            .about("Create a droplet")
             .arg(
                 Arg::with_name("name")
                     .value_name("NAME")
-                    .help("The name of the droplet.")
+                    .help("The name of the droplet")
                     .required(true)
                     .takes_value(true),
             )
             .arg(
                 Arg::with_name("region")
                     .value_name("REGION")
-                    .help("The region to place the droplet in.")
+                    .help("The region to place the droplet in")
                     .required(true)
                     .takes_value(true),
             )
             .arg(
                 Arg::with_name("size")
                     .value_name("SIZE")
-                    .help("The size of the droplet.")
+                    .help("The size of the droplet")
                     .required(true)
                     .takes_value(true),
             )
             .arg(
                 Arg::with_name("image")
                     .value_name("IMAGE")
-                    .help("The image for the droplet.")
+                    .help("The image for the droplet")
                     .required(true)
                     .takes_value(true),
             )
@@ -43,7 +43,7 @@ impl Component for Create {
                 Arg::with_name("key")
                     .long("key")
                     .value_name("KEY")
-                    .help("The key IDs that should have access to the droplet.")
+                    .help("The key IDs that should have access to the droplet")
                     .multiple(true)
                     .required(false)
                     .takes_value(true),
@@ -56,7 +56,6 @@ impl Component for Create {
         let region = arg_matches.value_of("region").unwrap();
         let size = arg_matches.value_of("size").unwrap();
         let image = arg_matches.value_of("image").unwrap();
-
 
         let request = Droplet::create(name, region, size, image);
 

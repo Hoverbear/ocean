@@ -1,5 +1,5 @@
-use AsTable;
-use clap::{App, AppSettings, Arg, ArgMatches};
+use crate::AsTable;
+use clap::{crate_authors, crate_version, App, AppSettings, Arg, ArgMatches};
 use digitalocean::prelude::*;
 use failure::Error;
 use serde;
@@ -52,7 +52,7 @@ pub trait Component {
                 // https://github.com/alexcrichton/toml-rs/issues/142
                 let workaround = toml::value::Value::try_from(&values)?;
                 println!("{}", toml::to_string_pretty(&workaround)?)
-            },
+            }
             Some("yaml") => println!("{}", serde_yaml::to_string(&values)?),
             Some("table") => values.as_table(),
             _ => unreachable!(),
@@ -70,20 +70,18 @@ impl Component for Root {
             .version(crate_version!())
             .author(crate_authors!())
             .about(env!("CARGO_PKG_DESCRIPTION"))
-            .global_settings(
-                &[
-                    AppSettings::ColoredHelp,
-                    AppSettings::GlobalVersion,
-                    AppSettings::InferSubcommands,
-                ],
-            )
+            .global_settings(&[
+                AppSettings::ColoredHelp,
+                AppSettings::GlobalVersion,
+                AppSettings::InferSubcommands,
+            ])
             .setting(AppSettings::SubcommandRequired)
             .arg(
                 Arg::with_name("token")
                     .long("token")
                     .short("t")
                     .value_name("TOKEN")
-                    .help("The DigitalOcean API key to use.")
+                    .help("The DigitalOcean API key to use")
                     .required(false)
                     .takes_value(true),
             )
@@ -91,7 +89,7 @@ impl Component for Root {
                 Arg::with_name("output")
                     .long("output")
                     .short("o")
-                    .help("Output in a given format.")
+                    .help("Output in a given format")
                     .takes_value(true)
                     .possible_values(&["json", "yaml", "toml", "table", "debug"])
                     .required(false)

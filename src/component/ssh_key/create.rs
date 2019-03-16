@@ -1,5 +1,5 @@
+use crate::component::Component;
 use clap::{App, Arg, ArgMatches};
-use component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -10,18 +10,18 @@ impl Component for Create {
 
     fn app() -> App<'static, 'static> {
         App::new("create")
-            .about("Create an SSH key.")
+            .about("Create an SSH key")
             .arg(
                 Arg::with_name("name")
                     .value_name("NAME")
-                    .help("The name of the key.")
+                    .help("The name of the key")
                     .required(true)
                     .takes_value(true),
             )
             .arg(
                 Arg::with_name("pubkey")
                     .value_name("PUBLIC_KEY")
-                    .help("The public key of this SSH key.")
+                    .help("The public key of this SSH key")
                     .required(true)
                     .takes_value(true),
             )

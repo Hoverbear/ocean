@@ -1,37 +1,21 @@
 #[macro_use]
-extern crate clap;
-extern crate dotenv;
-extern crate env_logger;
-#[macro_use]
 extern crate log;
-extern crate digitalocean;
-extern crate prettytable;
-extern crate failure;
-#[macro_use]
-extern crate failure_derive;
-extern crate serde_json;
-extern crate toml;
-extern crate serde;
-#[macro_use]
-extern crate serde_derive;
-extern crate serde_yaml;
 
-mod component;
 mod arg;
+mod component;
 mod output;
 
 use clap::ArgMatches;
 use component::Component;
 use digitalocean::prelude::*;
-use failure::Error;
+use prettytable::Cell;
+use prettytable::Row;
 use prettytable::Table;
-use prettytable::cell::Cell;
-use prettytable::row::Row;
 use std::{env, process};
 
 fn main() {
     dotenv::dotenv().ok();
-    env_logger::init().ok();
+    env_logger::try_init().ok();
 
     let app = component::Root::app();
 
@@ -42,12 +26,11 @@ fn main() {
     let client = DigitalOcean::new(api_token).unwrap();
 
     if let Err(e) = component::Root::handle(client, &matches) {
-        info!("{:?}", e.cause());
+        info!("{:?}", e.as_fail());
         debug!("{}", e.backtrace());
         process::exit(1);
     }
 }
-
 
 // Checks in the following places, in order:
 //   - The `--token` flag passed to the program
@@ -71,9 +54,7 @@ impl<'a> AsTable for Vec<&'a str> {
     fn as_table(&self) {
         let mut table = Table::new();
 
-        table.set_format(
-            *prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR,
-        );
+        table.set_format(*prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR);
         table.set_titles(Row::new(vec![Cell::new("value")]));
 
         for row in self {

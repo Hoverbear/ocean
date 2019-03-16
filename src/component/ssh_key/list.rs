@@ -1,6 +1,5 @@
-use arg;
+use crate::{arg, component::Component};
 use clap::{App, ArgMatches};
-use component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -10,7 +9,7 @@ impl Component for List {
     const DEFAULT_OUTPUT: Option<&'static str> = Some("table");
 
     fn app() -> App<'static, 'static> {
-        App::new("list").about("List SSH keys.").arg(arg::limit())
+        App::new("list").about("List SSH keys").arg(arg::limit())
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {

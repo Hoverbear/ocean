@@ -1,11 +1,10 @@
-use AsTable;
+use crate::{component::Component, AsTable};
 use clap::{App, AppSettings, ArgMatches};
-use component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
+use prettytable::Cell;
+use prettytable::Row;
 use prettytable::{self, Table};
-use prettytable::cell::Cell;
-use prettytable::row::Row;
 
 mod list;
 pub use self::list::List;
@@ -24,7 +23,7 @@ pub struct Root;
 impl Component for Root {
     fn app() -> App<'static, 'static> {
         App::new("domain")
-            .about("Interact with domains.")
+            .about("Interact with domains")
             .setting(AppSettings::SubcommandRequired)
             .subcommand(List::app())
             .subcommand(Create::app())
@@ -53,17 +52,17 @@ impl AsTable for Vec<Domain> {
     fn as_table(&self) {
         let mut table = Table::new();
 
-        table.set_format(
-            *prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR,
-        );
+        table.set_format(*prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR);
         table.set_titles(Row::new(vec![Cell::new("name"), Cell::new("ttl")]));
 
         for row in self {
             table.add_row(Row::new(vec![
                 Cell::new(row.name()),
-                Cell::new(&row.ttl().map(|v| v.to_string()).unwrap_or(
-                    String::from("-"),
-                )),
+                Cell::new(
+                    &row.ttl()
+                        .map(|v| v.to_string())
+                        .unwrap_or(String::from("-")),
+                ),
             ]));
         }
 

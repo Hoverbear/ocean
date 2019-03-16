@@ -1,5 +1,5 @@
+use crate::component::Component;
 use clap::{App, Arg, ArgMatches};
-use component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
 use std::net::IpAddr;
@@ -12,18 +12,18 @@ impl Component for Create {
 
     fn app() -> App<'static, 'static> {
         App::new("create")
-            .about("Create a domain.")
+            .about("Create a domain")
             .arg(
                 Arg::with_name("domain")
                     .value_name("DOMAIN")
-                    .help("The domain.")
+                    .help("The domain")
                     .required(true)
                     .takes_value(true),
             )
             .arg(
                 Arg::with_name("address")
                     .value_name("ADDRESS")
-                    .help("The IP address to point the domain to.")
+                    .help("The IP address to point the domain to")
                     .required(true)
                     .takes_value(true),
             )

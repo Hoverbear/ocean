@@ -1,5 +1,5 @@
+use crate::component::Component;
 use clap::{App, Arg, ArgMatches};
-use component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -10,11 +10,11 @@ impl Component for Get {
 
     fn app() -> App<'static, 'static> {
         App::new("get")
-            .about("Get detailed info about domains.")
+            .about("Get detailed info about domains")
             .arg(
                 Arg::with_name("domain")
                     .value_name("DOMAIN")
-                    .help("The domains to get information about.")
+                    .help("The domains to get information about")
                     .required(true)
                     .multiple(true)
                     .takes_value(true),
@@ -24,7 +24,8 @@ impl Component for Get {
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         let args = arg_matches.values_of("domain").unwrap();
 
-        let response = args.map(|domain| Domain::get(domain))
+        let response = args
+            .map(|domain| Domain::get(domain))
             .map(|req| client.execute(req))
             .collect::<Result<Vec<_>, Error>>()?;
 
