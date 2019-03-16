@@ -13,6 +13,8 @@ mod domain;
 pub use self::domain::Root as Domain;
 mod ssh_key;
 pub use self::ssh_key::Root as SshKey;
+mod region;
+pub use self::region::Root as Region;
 mod infrastructure;
 pub use self::infrastructure::Root as Infrastructure;
 
@@ -99,6 +101,7 @@ impl Component for Root {
             .subcommand(Domain::app())
             .subcommand(Infrastructure::app())
             .subcommand(SshKey::app())
+            .subcommand(Region::app())
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
@@ -107,6 +110,7 @@ impl Component for Root {
             ("domain", Some(arg_matches)) => Domain::handle(client, arg_matches),
             ("key", Some(arg_matches)) => SshKey::handle(client, arg_matches),
             ("infrastructure", Some(arg_matches)) => Infrastructure::handle(client, arg_matches),
+            ("region", Some(arg_matches)) => Region::handle(client, arg_matches),
             _ => panic!("Unknown subcommand provided"),
         }
     }
