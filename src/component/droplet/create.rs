@@ -1,5 +1,5 @@
-use clap::{App, Arg, ArgMatches};
 use crate::component::Component;
+use clap::{App, Arg, ArgMatches};
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -56,7 +56,6 @@ impl Component for Create {
         let region = arg_matches.value_of("region").unwrap();
         let size = arg_matches.value_of("size").unwrap();
         let image = arg_matches.value_of("image").unwrap();
-
 
         let request = Droplet::create(name, region, size, image);
 

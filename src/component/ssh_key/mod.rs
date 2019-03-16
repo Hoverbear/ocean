@@ -1,10 +1,10 @@
+use crate::{component::Component, AsTable};
 use clap::{App, AppSettings, ArgMatches};
-use crate::{AsTable, component::Component};
 use digitalocean::prelude::*;
 use failure::Error;
-use prettytable::{self, Table};
 use prettytable::Cell;
 use prettytable::Row;
+use prettytable::{self, Table};
 
 mod list;
 pub use self::list::List;
@@ -52,9 +52,7 @@ impl AsTable for Vec<SshKey> {
     fn as_table(&self) {
         let mut table = Table::new();
 
-        table.set_format(
-            *prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR,
-        );
+        table.set_format(*prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR);
         table.set_titles(Row::new(vec![
             Cell::new("id"),
             Cell::new("name"),

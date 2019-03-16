@@ -1,5 +1,5 @@
-use clap::{App, Arg, ArgMatches};
 use crate::component::Component;
+use clap::{App, Arg, ArgMatches};
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -22,7 +22,8 @@ impl Component for Get {
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         let args = arg_matches.values_of("name").unwrap();
 
-        let response = args.map(|name| SshKey::get(name))
+        let response = args
+            .map(|name| SshKey::get(name))
             .map(|req| client.execute(req))
             .collect::<Result<Vec<_>, Error>>()?;
 

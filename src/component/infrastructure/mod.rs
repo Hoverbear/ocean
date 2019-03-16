@@ -1,9 +1,9 @@
+use crate::component::Component;
 use crate::AsTable;
 use clap::{App, AppSettings, ArgMatches};
-use crate::component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
-use serde_derive::{Serialize, Deserialize};
+use serde_derive::{Deserialize, Serialize};
 
 mod get;
 pub use self::get::Get;

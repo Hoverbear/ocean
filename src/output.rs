@@ -1,6 +1,6 @@
-use clap::{arg_enum, _clap_count_exprs};
+use clap::{_clap_count_exprs, arg_enum};
 
-arg_enum!{
+arg_enum! {
     #[derive(Debug)]
     enum Output {
         Json,

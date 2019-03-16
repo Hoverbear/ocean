@@ -1,10 +1,10 @@
+use crate::{component::Component, AsTable};
 use clap::{App, AppSettings, ArgMatches};
-use crate::{AsTable, component::Component};
 use digitalocean::prelude::*;
 use failure::Error;
-use prettytable::{self, Table};
 use prettytable::Cell;
 use prettytable::Row;
+use prettytable::{self, Table};
 
 mod list;
 pub use self::list::List;
@@ -52,17 +52,17 @@ impl AsTable for Vec<Domain> {
     fn as_table(&self) {
         let mut table = Table::new();
 
-        table.set_format(
-            *prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR,
-        );
+        table.set_format(*prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR);
         table.set_titles(Row::new(vec![Cell::new("name"), Cell::new("ttl")]));
 
         for row in self {
             table.add_row(Row::new(vec![
                 Cell::new(row.name()),
-                Cell::new(&row.ttl().map(|v| v.to_string()).unwrap_or(
-                    String::from("-"),
-                )),
+                Cell::new(
+                    &row.ttl()
+                        .map(|v| v.to_string())
+                        .unwrap_or(String::from("-")),
+                ),
             ]));
         }
 

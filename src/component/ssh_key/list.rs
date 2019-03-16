@@ -1,5 +1,5 @@
-use clap::{App, ArgMatches};
 use crate::{arg, component::Component};
+use clap::{App, ArgMatches};
 use digitalocean::prelude::*;
 use failure::Error;
 

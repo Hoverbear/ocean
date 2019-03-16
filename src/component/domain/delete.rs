@@ -1,5 +1,5 @@
-use clap::{App, Arg, ArgMatches};
 use crate::component::Component;
+use clap::{App, Arg, ArgMatches};
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -24,10 +24,7 @@ impl Component for Delete {
 
         let responses = values
             .map(|v| (v, Domain::delete(v)))
-            .map(|(name, req)| {
-                client.execute(req)
-                    .map(|()| name)
-            })
+            .map(|(name, req)| client.execute(req).map(|()| name))
             .collect::<Result<Vec<_>, Error>>()?;
 
         Self::output(responses, arg_matches.value_of("output"))?;

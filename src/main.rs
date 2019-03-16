@@ -1,16 +1,16 @@
 #[macro_use]
 extern crate log;
 
-mod component;
 mod arg;
+mod component;
 mod output;
 
 use clap::ArgMatches;
 use component::Component;
 use digitalocean::prelude::*;
-use prettytable::Table;
 use prettytable::Cell;
 use prettytable::Row;
+use prettytable::Table;
 use std::{env, process};
 
 fn main() {
@@ -31,7 +31,6 @@ fn main() {
         process::exit(1);
     }
 }
-
 
 // Checks in the following places, in order:
 //   - The `--token` flag passed to the program
@@ -55,9 +54,7 @@ impl<'a> AsTable for Vec<&'a str> {
     fn as_table(&self) {
         let mut table = Table::new();
 
-        table.set_format(
-            *prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR,
-        );
+        table.set_format(*prettytable::format::consts::FORMAT_NO_BORDER_LINE_SEPARATOR);
         table.set_titles(Row::new(vec![Cell::new("value")]));
 
         for row in self {
