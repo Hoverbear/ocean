@@ -1,5 +1,5 @@
 use clap::{App, Arg, ArgMatches};
-use component::Component;
+use crate::component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
 use std::num;
@@ -11,11 +11,11 @@ impl Component for Get {
 
     fn app() -> App<'static, 'static> {
         App::new("get")
-            .about("Get detailed info about droplets.")
+            .about("Get detailed info about droplets")
             .arg(
                 Arg::with_name("droplet")
                     .value_name("DROPLET")
-                    .help("The droplets to get information about.")
+                    .help("The droplets to get information about")
                     .required(true)
                     .multiple(true)
                     .takes_value(true),

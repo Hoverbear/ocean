@@ -1,5 +1,5 @@
-use AsTable;
-use clap::{App, AppSettings, Arg, ArgMatches};
+use crate::AsTable;
+use clap::{crate_version, crate_authors, App, AppSettings, Arg, ArgMatches};
 use digitalocean::prelude::*;
 use failure::Error;
 use serde;
@@ -83,7 +83,7 @@ impl Component for Root {
                     .long("token")
                     .short("t")
                     .value_name("TOKEN")
-                    .help("The DigitalOcean API key to use.")
+                    .help("The DigitalOcean API key to use")
                     .required(false)
                     .takes_value(true),
             )
@@ -91,7 +91,7 @@ impl Component for Root {
                 Arg::with_name("output")
                     .long("output")
                     .short("o")
-                    .help("Output in a given format.")
+                    .help("Output in a given format")
                     .takes_value(true)
                     .possible_values(&["json", "yaml", "toml", "table", "debug"])
                     .required(false)

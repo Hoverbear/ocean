@@ -1,20 +1,5 @@
 #[macro_use]
-extern crate clap;
-extern crate dotenv;
-extern crate env_logger;
-#[macro_use]
 extern crate log;
-extern crate digitalocean;
-extern crate prettytable;
-extern crate failure;
-#[macro_use]
-extern crate failure_derive;
-extern crate serde_json;
-extern crate toml;
-extern crate serde;
-#[macro_use]
-extern crate serde_derive;
-extern crate serde_yaml;
 
 mod component;
 mod arg;
@@ -23,15 +8,14 @@ mod output;
 use clap::ArgMatches;
 use component::Component;
 use digitalocean::prelude::*;
-use failure::Error;
 use prettytable::Table;
-use prettytable::cell::Cell;
-use prettytable::row::Row;
+use prettytable::Cell;
+use prettytable::Row;
 use std::{env, process};
 
 fn main() {
     dotenv::dotenv().ok();
-    env_logger::init().ok();
+    env_logger::try_init().ok();
 
     let app = component::Root::app();
 

@@ -1,5 +1,5 @@
 use clap::{App, Arg, ArgMatches};
-use component::Component;
+use crate::component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -10,11 +10,11 @@ impl Component for Get {
 
     fn app() -> App<'static, 'static> {
         App::new("get")
-            .about("Get detailed info about domains.")
+            .about("Get detailed info about domains")
             .arg(
                 Arg::with_name("domain")
                     .value_name("DOMAIN")
-                    .help("The domains to get information about.")
+                    .help("The domains to get information about")
                     .required(true)
                     .multiple(true)
                     .takes_value(true),

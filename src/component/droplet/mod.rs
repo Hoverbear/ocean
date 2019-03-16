@@ -1,11 +1,11 @@
-use AsTable;
+use crate::AsTable;
 use clap::{App, AppSettings, ArgMatches};
-use component::Component;
+use crate::component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
 use prettytable::{self, Table};
-use prettytable::cell::Cell;
-use prettytable::row::Row;
+use prettytable::Cell;
+use prettytable::Row;
 
 mod list;
 pub use self::list::List;
@@ -21,7 +21,7 @@ pub struct Root;
 impl Component for Root {
     fn app() -> App<'static, 'static> {
         App::new("droplet")
-            .about("Interact with droplets.")
+            .about("Interact with droplets")
             .setting(AppSettings::SubcommandRequired)
             .subcommand(List::app())
             .subcommand(Get::app())

@@ -1,5 +1,5 @@
 use clap::{App, Arg, ArgMatches};
-use component::Component;
+use crate::component::Component;
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -8,11 +8,11 @@ pub struct Get;
 impl Component for Get {
     fn app() -> App<'static, 'static> {
         App::new("get")
-            .about("Get detailed info about SSH keys.")
+            .about("Get detailed info about SSH keys")
             .arg(
                 Arg::with_name("name")
                     .value_name("NAME")
-                    .help("The SSH keys to get information about.")
+                    .help("The SSH keys to get information about")
                     .required(true)
                     .multiple(true)
                     .takes_value(true),
