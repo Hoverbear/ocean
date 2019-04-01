@@ -7,6 +7,8 @@ use serde_json;
 use serde_yaml;
 use toml;
 
+mod account;
+pub use self::account::Root as Account;
 mod droplet;
 pub use self::droplet::Root as Droplet;
 mod domain;
@@ -97,6 +99,7 @@ impl Component for Root {
                     .required(false)
                     .global(true),
             )
+            .subcommand(Account::app())
             .subcommand(Droplet::app())
             .subcommand(Domain::app())
             .subcommand(Infrastructure::app())
@@ -106,6 +109,7 @@ impl Component for Root {
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
         match arg_matches.subcommand() {
+            ("account", Some(arg_matches)) => Account::handle(client, arg_matches),
             ("droplet", Some(arg_matches)) => Droplet::handle(client, arg_matches),
             ("domain", Some(arg_matches)) => Domain::handle(client, arg_matches),
             ("key", Some(arg_matches)) => SshKey::handle(client, arg_matches),
