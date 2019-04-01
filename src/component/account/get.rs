@@ -9,8 +9,7 @@ impl Component for Get {
     const DEFAULT_OUTPUT: Option<&'static str> = Some("debug");
 
     fn app() -> App<'static, 'static> {
-        App::new("get")
-            .about("Get detailed info about your account")
+        App::new("get").about("Get detailed info about your account")
     }
 
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {

@@ -44,7 +44,7 @@ impl AsTable for Vec<Account> {
             Cell::new("floating ip limit"),
             Cell::new("email verified"),
             Cell::new("status"),
-            Cell::new("message")
+            Cell::new("message"),
         ]));
 
         for row in self {
