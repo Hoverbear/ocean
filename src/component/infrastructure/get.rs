@@ -1,6 +1,6 @@
 use super::Infrastructure;
 use crate::component::Component;
-use clap::{App, Arg, ArgMatches};
+use clap::{App, ArgMatches};
 use digitalocean::prelude::*;
 use failure::Error;
 
