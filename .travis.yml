@@ -8,7 +8,7 @@ rust:
   - stable
   - nightly
   # First Rust 2018 Stable. Officially the oldest compiler we support.
-  - 1.31.0
+  - 1.32.0
 env:
   global:
     - RUST_BACKTRACE=1
