@@ -46,7 +46,7 @@ pub trait Component {
     fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error>;
 
     /// Handles outputting the values appropriately.
-    fn output<'a, T>(values: T, format: Option<&'a str>) -> Result<(), Error>
+    fn output<T>(values: T, format: Option<&str>) -> Result<(), Error>
     where
         T: serde::ser::Serialize + ::std::fmt::Debug + AsTable,
     {

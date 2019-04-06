@@ -61,7 +61,7 @@ impl AsTable for Vec<Domain> {
                 Cell::new(
                     &row.ttl()
                         .map(|v| v.to_string())
-                        .unwrap_or(String::from("-")),
+                        .unwrap_or_else(|| String::from("-")),
                 ),
             ]));
         }

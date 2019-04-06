@@ -25,7 +25,7 @@ impl Component for Get {
         let args = arg_matches.values_of("domain").unwrap();
 
         let response = args
-            .map(|domain| Domain::get(domain))
+            .map(Domain::get)
             .map(|req| client.execute(req))
             .collect::<Result<Vec<_>, Error>>()?;
 

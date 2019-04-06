@@ -1,6 +1,5 @@
-use super::Infrastructure;
 use crate::component::Component;
-use clap::{App, Arg, ArgMatches};
+use clap::{App, ArgMatches};
 use digitalocean::prelude::*;
 use failure::Error;
 
@@ -11,11 +10,9 @@ impl Component for Apply {
         App::new("apply").about("Apply a configuration to the infrastructure")
     }
 
-    fn handle(client: DigitalOcean, arg_matches: &ArgMatches) -> Result<(), Error> {
+    fn handle(_client: DigitalOcean, _arg_matches: &ArgMatches) -> Result<(), Error> {
         unimplemented!();
-
-        Self::output(Infrastructure::default(), arg_matches.value_of("output"))?;
-
-        Ok(())
+        // Self::output(Infrastructure::default(), _arg_matches.value_of("output"))?;
+        // Ok(())
     }
 }
